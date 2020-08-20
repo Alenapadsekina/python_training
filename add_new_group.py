@@ -33,6 +33,7 @@ class AddNewGroup(unittest.TestCase):
         wd.find_element_by_name("group_footer").clear()
         wd.find_element_by_name("group_footer").send_keys("group footer")
         wd.find_element_by_name("submit").click()
+        wd.find_element_by_link_text("Logout").click()
     
     def is_element_present(self, how, what):
         try: self.wd.find_element(by=how, value=what)
