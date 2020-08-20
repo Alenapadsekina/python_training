@@ -13,7 +13,7 @@ class TestAddGroup(unittest.TestCase):
         self.wd.implicitly_wait(30)
    def test_add_group(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/")
+        wd.get("http://localhost/addressbook/group.php")
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys("admin")
         wd.find_element_by_name("pass").click()
