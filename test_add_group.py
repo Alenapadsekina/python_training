@@ -13,16 +13,18 @@ class AddNewGroup(unittest.TestCase):
 # MAIN TEST
     def test_add_new_group(self):
         wd = self.wd
-        self.open_home_page(wd)
-        self.login(wd, username="admin", password="secret")
-        self.create_new_group(wd, Group(name="new group", header="group header", footer="group footer"))
-        self.logout(wd)
+        self.open_home_page()
+        self.login(username="admin", password="secret")
+        self.create_new_group(Group(name="new group", header="group header", footer="group footer"))
+        self.logout()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
-    def create_new_group(self, wd, group):
+    def create_new_group(self, group):
         # fill new group form
+        wd = self.wd
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
@@ -36,10 +38,12 @@ class AddNewGroup(unittest.TestCase):
         # submit group
         wd.find_element_by_name("submit").click()
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
+        wd = self.wd
         wd.get("http://localhost/addressbook/group.php")
 
-    def login(self, wd, username, password):
+    def login(self, username, password):
+        wd = self.wd
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys(username)
