@@ -9,14 +9,16 @@ class AddNewContact(unittest.TestCase):
     def setUp(self):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
-        self.base_url = "https://www.google.com/"
-        self.verificationErrors = []
-        self.accept_next_alert = True
-    
+
     def test_add_new_contact(self):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd)
+        self.create_new_contact(wd)
+        self.logout(wd)
+
+    def create_new_contact(self, wd):
+        # name
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys("first_name")
@@ -29,9 +31,11 @@ class AddNewContact(unittest.TestCase):
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
         wd.find_element_by_name("nickname").send_keys("nickname")
+        # company
         wd.find_element_by_name("company").click()
         wd.find_element_by_name("company").clear()
         wd.find_element_by_name("company").send_keys("some_company")
+        # address
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").clear()
         wd.find_element_by_name("address").send_keys("123 Tice Blvd.")
@@ -39,6 +43,7 @@ class AddNewContact(unittest.TestCase):
         wd.find_element_by_name("mobile").send_keys("2013912500")
         wd.find_element_by_name("address2").clear()
         wd.find_element_by_name("address2").send_keys("Woodcliff Lake")
+        # contacts
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
         wd.find_element_by_name("home").send_keys("2013912501")
@@ -63,6 +68,7 @@ class AddNewContact(unittest.TestCase):
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
         wd.find_element_by_name("homepage").send_keys("http://homepage.com")
+        # dates
         wd.find_element_by_name("bday").click()
         Select(wd.find_element_by_name("bday")).select_by_visible_text("17")
         wd.find_element_by_name("bday").click()
@@ -81,15 +87,19 @@ class AddNewContact(unittest.TestCase):
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys("1990")
+        # group
         wd.find_element_by_name("new_group").click()
         wd.find_element_by_name("theform").click()
         wd.find_element_by_name("phone2").click()
         wd.find_element_by_name("phone2").clear()
         wd.find_element_by_name("phone2").send_keys("8885016953")
+        # notes
         wd.find_element_by_name("notes").click()
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys("notes notes")
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+
+    def logout(self, wd):
         wd.find_element_by_link_text("Logout").click()
 
     def login(self, wd):
@@ -100,7 +110,7 @@ class AddNewContact(unittest.TestCase):
         wd.find_element_by_name("pass").send_keys("secret")
         wd.find_element_by_xpath("//input[@value='Login']").click()
 
-    def open_home_page(self, driver):
+    def open_home_page(self, wd):
         wd.get("http://localhost/addressbook/edit.php")
 
     def is_element_present(self, how, what):
@@ -126,7 +136,6 @@ class AddNewContact(unittest.TestCase):
     
     def tearDown(self):
         self.wd.quit()
-        self.assertEqual([], self.verificationErrors)
 
 if __name__ == "__main__":
     unittest.main()
