@@ -10,12 +10,17 @@ def app(request):
     return fixture
 
 
-# MAIN TEST
+# ADD A NEW GROUP
 def test_add_new_group(app):
     app.open_home_page()
     app.login(username="admin", password="secret")
     app.create_new_group(Group(name="new group", header="group header", footer="group footer"))
     app.logout()
 
-def tearDown(self):
-    app.destroy()
+# ADD EMPTY GROUP
+def test_add_empty_group(app):
+    app.open_home_page()
+    app.login(username="admin", password="secret")
+    app.create_new_group(Group(name="", header="", footer=""))
+    app.logout()
+
