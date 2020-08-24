@@ -14,7 +14,7 @@ def app(request):
 def test_add_new_contact(app):
     app.open_contact_page()
     app.session.login(username="admin", password="secret")
-    app.create_new_contact(Contact(first_name="first_name", middle_name="middle_name", last_name="last_name", nickname="nickname",
+    app.contact.create_new_contact(Contact(first_name="first_name", middle_name="middle_name", last_name="last_name", nickname="nickname",
                            company="some_company", address_1="123 Tice Blvd.", mobile_phone="2013912500",
                            address_2="Woodcliff Lake", home_phone="2013912501", work_phone="2013912502", fax="2013912503",
                            email_2="test.email.2@test.com", email_3="test.email.3@test.com",
