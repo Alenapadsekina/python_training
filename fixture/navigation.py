@@ -6,10 +6,10 @@ class NavigationHelper:
 
     def open_home_page(self):
         wd = self.app.wd
-        wd.get("http://localhost/addressbook/group.php")
+        wd.get("http://localhost:8443/addressbook/group.php")
 
 
     def open_contact_page(self):
         wd = self.app.wd
-        wd.get("http://localhost/addressbook/edit.php")
+        wd.get("http://localhost:8443/addressbook/edit.php")
 
