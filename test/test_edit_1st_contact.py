@@ -9,4 +9,3 @@ def test_add_new_contact(app):
                            email_2="edited.email.2@test.com", email_3="edited.email.3@test.com",
                            email_1="edited.email.1@test.com", website="http://edited_homepage.com", group_phone="1085016953", birth_day="3", birth_month="February", anniversary_date="18",
                            anniversary_month="December", anniversary_year="1991", birth_year="1991"))
-    app.session.logout()
