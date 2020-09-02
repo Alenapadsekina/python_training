@@ -26,10 +26,17 @@ class GroupHelper:
         self.change_field_value("group_header", group.header)
         self.change_field_value("group_footer", group.footer)
 
+    # COUNT GROUPS
+
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
+
     # FIND THE ELEMENT
 
     def select_first_group(self):
         wd = self.app.wd
+        self.open_groups_page()
         wd.find_element_by_name("selected[]").click()
 
     # CRUD GROUPS

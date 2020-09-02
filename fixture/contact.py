@@ -59,8 +59,10 @@ class ContactHelper:
         # Select(wd.find_element_by_name("amonth")).select_by_visible_text(contact.anniversary_month)
         self.change_field_value("ayear", contact.anniversary_year)
 
-
-
+    # COUNT CONTACTS
+    def count(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
 
 
     # SELECT CONTACT
