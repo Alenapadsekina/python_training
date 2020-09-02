@@ -1,3 +1,4 @@
+from model.contact import Contact
 
 # DELETE 1ST CONTACT
 def test_delete_1st_contact(app):
