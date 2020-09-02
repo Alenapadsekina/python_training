@@ -6,6 +6,15 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
+    # NAVIGATION
+    def open_contact_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("add new").click()
+
+    def return_to_home_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home page").click()
+
     # FILL CONTACT DATA
 
     def change_field_value(self, field_name, field_value):
@@ -67,8 +76,10 @@ class ContactHelper:
 
     def create_new_contact(self, contact):
         wd = self.app.wd
+        self.open_contact_page()
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
+        self.return_to_home_page()
 
 
     def edit_first_contact(self, contact):

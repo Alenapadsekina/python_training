@@ -14,8 +14,5 @@ class Application:
         self.navigation = NavigationHelper(self)
 
 
-
-
-
     def destroy(self):
         self.wd.quit()

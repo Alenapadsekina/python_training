@@ -46,8 +46,8 @@ class GroupHelper:
 
     def edit_first_group(self, group):
         wd = self.app.wd
-        # find 1st group
-        wd.find_element_by_name("selected[]").click()
+        self.open_groups_page()
+        self.select_first_group()
         wd.find_element_by_name("edit").click()
         # edit group data
         self.fill_group_form(group)
@@ -68,6 +68,7 @@ class GroupHelper:
 
     def delete_first_group(self):
         wd = self.app.wd
+        self.open_groups_page()
         self.select_first_group()
         # submit deletion
         wd.find_element_by_name("delete").click()
