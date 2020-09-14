@@ -13,8 +13,7 @@ def test_delete_1st_contact(app):
                     anniversary_month="December", anniversary_year="1990", birth_year="1990"))
     old_contacts = app.contact.get_contacts_list()
     app.contact.delete_first_contact()
+    assert (len(old_contacts) - 1) == app.contact.count()
     new_contacts = app.contact.get_contacts_list()
     old_contacts[0:1] = []
-    assert len(old_contacts) == len(new_contacts)
-
     assert sorted(old_contacts, key=Contact.id_or_max)==sorted(new_contacts, key=Contact.id_or_max)

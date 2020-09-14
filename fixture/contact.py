@@ -67,17 +67,21 @@ class ContactHelper:
         self.return_to_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    # CACHE
+    contacts_cache = None
+
     def get_contacts_list(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
-        contacts = []
-        for element in wd.find_elements_by_name("entry"):
-            elements = element.find_elements_by_tag_name("td")
-            last_name = elements[1].text
-            #first_name = elements[2].text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(last_name=last_name,  id = id))
-        return contacts
+        if self.contacts_cache is None:
+            wd = self.app.wd
+            wd.find_element_by_link_text("home").click()
+            self.contacts_cache = []
+            for element in wd.find_elements_by_name("entry"):
+                elements = element.find_elements_by_tag_name("td")
+                last_name = elements[1].text
+                #first_name = elements[2].text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.contacts_cache.append(Contact(last_name=last_name,  id = id))
+        return self.contacts_cache
 
 
     # SELECT CONTACT
@@ -97,6 +101,7 @@ class ContactHelper:
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         #self.return_to_home_page()
+        self.contacts_cache = None
 
 
     def edit_first_contact(self, contact):
@@ -114,6 +119,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         self.fill_contact_form(contact)
         wd.find_element_by_name("update").click()
+        self.contacts_cache = None
 
 
     def delete_first_contact(self):
@@ -123,4 +129,5 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         # confirm deletion
         wd.switch_to_alert().accept()
-        #self.return_to_home_page()
+        wd.find_element_by_link_text("home").click()
+        self.contacts_cache = None
