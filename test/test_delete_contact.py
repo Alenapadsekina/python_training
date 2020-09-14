@@ -17,4 +17,4 @@ def test_delete_1st_contact(app):
     old_contacts[0:1] = []
     assert len(old_contacts) == len(new_contacts)
 
-    #assert sorted(old_contacts, key=Contact.id_or_max)==sorted(new_contacts, key=Contact.id_or_max)
+    assert sorted(old_contacts, key=Contact.id_or_max)==sorted(new_contacts, key=Contact.id_or_max)
