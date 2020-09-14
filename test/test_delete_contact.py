@@ -1,4 +1,5 @@
 from model.contact import Contact
+from random import randrange
 
 # DELETE 1ST CONTACT
 def test_delete_1st_contact(app):
