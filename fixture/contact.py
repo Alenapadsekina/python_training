@@ -66,6 +66,7 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         self.return_to_home_page()
+        wd.find_element_by_link_text("home").click()
         return len(wd.find_elements_by_name("selected[]"))
 
     # CACHE
@@ -149,7 +150,7 @@ class ContactHelper:
         self.open_contact_page()
         self.fill_contact_form(contact)
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
-        #self.return_to_home_page()
+        wd.find_element_by_link_text("home").click()
         self.contacts_cache = None
 
 
