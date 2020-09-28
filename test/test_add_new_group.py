@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 from model.group import Group
-import pytest
-from data.add_group import testdata
-#from data.add_group import constant as testdata
 
-@pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
 
 # ADD A NEW GROUP
-def test_add_new_group(app, group):
+def test_add_new_group(app, json_groups):
+    group = json_groups
     old_groups = app.group.get_group_list()
     app.group.create_gr(group)
     assert len(old_groups)+1 == app.group.count()
