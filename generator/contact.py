@@ -1,4 +1,4 @@
-from model.group import Group
+from model.contact import Contact
 import random
 import string
 import os.path
@@ -9,36 +9,36 @@ import sys
 
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of groups", "file"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of contacts", "file"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
 
 n = 5
-f = "/data/groups.json"
-print(f)
+f = "/data/contacts.json"
+
 for o, a in opts:
     if o == "-n":
         n=int(a)
     elif o== "-f":
         f = a
-print(f)
+
 def random_string(prefix, maxlen):
     symbols = string.ascii_letters + string.digits + string.punctuation + ' '
     return prefix + "".join(random.choice(symbols) for i in range(random.randrange(maxlen)))
 
-#testdata = [Group(name="", header="", footer="")] + [
-#    Group(name=random_string("name_", 10), header=random_string("header_", 10), footer=random_string("footer_", 10))
-#    for i in range(5)
-#    ]
-
-testdata = [Group(name=name, header=header, footer=footer)
-    for name in ['', random_string("name_", 10)]
-    for header in ['', random_string("header_", 10)]
-    for footer in ['', random_string("footer_", 10)]
+testdata = [Contact(first_name=last_name, last_name=last_name, mobile_phone=mobile_phone, email_1=email_1)
+    for first_name in ['', random_string("first_name_", 5)]
+    for last_name in ['', random_string("last_name_", 5)]
+    for mobile_phone in ['', random_string("", 10)]
+    for email_1 in ['', random_string("email@test.", 4)]
     ]
+
+
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 print(file)
+file1 = os.path.abspath(__file__)
+
 with open(file, 'w') as out:
     jsonpickle.set_encoder_options("json", indent=2)
     out.write(jsonpickle.encode(testdata))

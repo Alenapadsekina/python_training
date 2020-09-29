@@ -3,6 +3,7 @@ import pytest
 import jsonpickle
 import os.path
 import importlib
+import json
 
 fixture = None
 target = None
