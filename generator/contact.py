@@ -27,7 +27,7 @@ def random_string(prefix, maxlen):
     symbols = string.ascii_letters + string.digits + string.punctuation + ' '
     return prefix + "".join(random.choice(symbols) for i in range(random.randrange(maxlen)))
 
-testdata = [Contact(first_name=last_name, last_name=last_name, mobile_phone=mobile_phone, email_1=email_1)
+testdata = [Contact(first_name=first_name, last_name=last_name, mobile_phone=mobile_phone, email_1=email_1)
     for first_name in ['', random_string("first_name_", 5)]
     for last_name in ['', random_string("last_name_", 5)]
     for mobile_phone in ['', random_string("", 10)]
