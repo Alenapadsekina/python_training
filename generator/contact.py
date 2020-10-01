@@ -35,9 +35,9 @@ testdata = [Contact(first_name=first_name, last_name=last_name, mobile_phone=mob
     ]
 
 
-file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
-print(file)
-file1 = os.path.abspath(__file__)
+#file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
+
+file = os.path.split(os.path.dirname( __file__ ))[0]+f
 
 with open(file, 'w') as out:
     jsonpickle.set_encoder_options("json", indent=2)
