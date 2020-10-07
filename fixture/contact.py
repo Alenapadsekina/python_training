@@ -97,6 +97,16 @@ class ContactHelper:
         cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
 
+    def open_contact_to_edit_by_id(self, id):
+        wd = self.app.wd
+        self.return_to_home_page()
+        rows = wd.find_elements_by_name("entry")
+        for i in (len(rows)):
+            contact_id = rows[i].find_elements_by_tag_name("td")[1]
+            if contact_id == id:
+                cell = rows.find_elements_by_tag_name("td")[7]
+                cell.find_element_by_tag_name("a").click()
+
     def open_contact_to_view_by_index(self, index):
         wd = self.app.wd
         self.return_to_home_page()
@@ -141,6 +151,11 @@ class ContactHelper:
     def select_first_contact(self):
         self.select_contact_by_index(0)
 
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        self.return_to_home_page()
+        wd.find_element_by_css_selector("input[value = '%s']" % id).click()
+
 
 
     # CRUD CONTACTS
@@ -170,6 +185,13 @@ class ContactHelper:
         wd.find_element_by_name("update").click()
         self.contacts_cache = None
 
+    def modify_contact_by_id(self, contact, id):
+        wd = self.app.wd
+        self.open_contact_to_edit_by_id(id)
+        self.fill_contact_form(contact)
+        wd.find_element_by_name("update").click()
+        self.contacts_cache = None
+
     def modify_first_contact(self):
         self.modify_contact_by_index(0)
 
@@ -186,3 +208,14 @@ class ContactHelper:
 
     def delete_first_contact(self):
         self.select_contact_by_index(0)
+
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.return_to_home_page()
+        self.select_contact_by_id(id)
+        # delete contact
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        # confirm deletion
+        wd.switch_to_alert().accept()
+        wd.find_element_by_link_text("home").click()
+        self.contacts_cache = None

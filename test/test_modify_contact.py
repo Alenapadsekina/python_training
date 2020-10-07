@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
-from random import randrange
+import random
 
 # MODIFY 1ST CONTACT NAME
-def test_modify_contact_name(app):
+def test_modify_contact_name(app, db):
 
     if app.contact.count()==0:
         app.contact.create_new_contact(Contact(first_name="first_name", middle_name="middle_name", last_name="last_name", nickname="nickname",
@@ -13,12 +13,11 @@ def test_modify_contact_name(app):
                     email_1="test.email.1@test.com", website="http://homepage.com", group_phone="8885016953",
                     birth_day="17", birth_month="February", anniversary_date="18",
                     anniversary_month="December", anniversary_year="1990", birth_year="1990"))
-    old_contacts = app.contact.get_contacts_list()
-    index = randrange(len(old_contacts))
-    contact = Contact(last_name="New last name")
-    contact.id = old_contacts[index].id
-    app.contact.modify_contact_by_index(contact, index)
-    assert len(old_contacts) == app.contact.count()
-    new_contacts = app.contact.get_contacts_list()
-    old_contacts[index].last_name = contact.last_name
-    assert sorted(old_contacts, key = Contact.id_or_max) == sorted(new_contacts, key = Contact.id_or_max)
+    old_contacts = db.get_contact_list()
+    contact = random.choice(old_contacts)
+    new_contact_lastname = Contact(last_name="New last name")
+    app.contact.modify_contact_by_id(new_contact_lastname, contact.id)
+    new_contacts = db.get_contact_list()
+  #  old_contacts[index].last_name = contact.last_name
+  #  assert sorted(old_contacts, key = Contact.id_or_max) == sorted(new_contacts, key = Contact.id_or_max)
+    print(old_contacts[1])

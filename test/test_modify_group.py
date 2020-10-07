@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
 from model.group import Group
-from random import randrange
+import random
 
 
 # MODIFY GROUP NAME
-def test_modify_group_name(app):
-    old_groups = app.group.get_group_list()
-    index = randrange(len(old_groups))
-    group = Group(name="New name")
-    group.id = old_groups[index].id
-    if app.group.count()==0:
-        app.group.create_gr(group)
-    app.group.modify_group_by_index(group, index)
-    assert len(old_groups)==app.group.count()
-    new_groups = app.group.get_group_list()
-    old_groups[index] = group
+def test_modify_group_name(app, db):
+    if len(db.get_group_list()) == 0:
+        app.group.create_gr(Group(name="new group", header="group header", footer="group footer"))
+        print("NO GROUPS")
+    old_groups = db.get_group_list()
+    group = random.choice(old_groups)
+    app.group.modify_group_by_id(Group(name="New name"), group.id)
+    old_groups.remove(group)
+    new_groups = db.get_group_list()
     assert sorted(old_groups, key = Group.id_or_max) == sorted(new_groups, key = Group.id_or_max)
 
 
