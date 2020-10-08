@@ -15,9 +15,12 @@ def test_modify_contact_name(app, db):
                     anniversary_month="December", anniversary_year="1990", birth_year="1990"))
     old_contacts = db.get_contact_list()
     contact = random.choice(old_contacts)
-    new_contact_lastname = Contact(last_name="New last name")
+    contact_id = contact.id
+    new_contact_lastname = Contact(last_name="MODIFIED LAST NAME")
     app.contact.modify_contact_by_id(new_contact_lastname, contact.id)
     new_contacts = db.get_contact_list()
-  #  old_contacts[index].last_name = contact.last_name
-  #  assert sorted(old_contacts, key = Contact.id_or_max) == sorted(new_contacts, key = Contact.id_or_max)
+    for i in range(len(old_contacts)):
+        if old_contacts[i].id == contact_id:
+            old_contacts[i].last_name = "MODIFIED LAST NAME"
+    assert sorted(old_contacts, key = Contact.id_or_max) == sorted(new_contacts, key = Contact.id_or_max)
     print(old_contacts[1])

@@ -100,12 +100,8 @@ class ContactHelper:
     def open_contact_to_edit_by_id(self, id):
         wd = self.app.wd
         self.return_to_home_page()
-        rows = wd.find_elements_by_name("entry")
-        for i in (len(rows)):
-            contact_id = rows[i].find_elements_by_tag_name("td")[1]
-            if contact_id == id:
-                cell = rows.find_elements_by_tag_name("td")[7]
-                cell.find_element_by_tag_name("a").click()
+        href = "//a[@href='edit.php?id="+id+"']"
+        wd.find_element_by_xpath(href).click()
 
     def open_contact_to_view_by_index(self, index):
         wd = self.app.wd
