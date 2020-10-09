@@ -13,7 +13,7 @@ def test_add_new_contact(app, db, check_ui):
                     anniversary_month="December", anniversary_year="1990", birth_year="1990"))
 
     contact = Contact(first_name="EDITED FIRST NAME", middle_name="", last_name="EDITED LAST NAME", nickname="",
-                           company="", address_1="", mobile_phone="", address_2="", home_phone="", work_phone="", fax="",
+                           company="", address_1="ADDRESS_1", mobile_phone="", address_2="", home_phone="", work_phone="", fax="",
                            email_2="", email_3="", email_1="", website="", group_phone="", birth_day="", birth_month="", anniversary_date="",
                            anniversary_month="", anniversary_year="", birth_year="")
     contact.id = app.contact.get_contacts_list()[0].id
