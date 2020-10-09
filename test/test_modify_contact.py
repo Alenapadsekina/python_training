@@ -23,4 +23,4 @@ def test_modify_contact_name(app, db):
         if old_contacts[i].id == contact_id:
             old_contacts[i].last_name = "MODIFIED LAST NAME"
     assert sorted(old_contacts, key = Contact.id_or_max) == sorted(new_contacts, key = Contact.id_or_max)
-    print(old_contacts[1])
+
