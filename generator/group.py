@@ -15,7 +15,7 @@ except getopt.GetoptError as err:
     sys.exit(2)
 
 n = 5
-f = "/data/groups.json"
+f = "\data\groups.json"
 print(f)
 for o, a in opts:
     if o == "-n":
@@ -27,14 +27,12 @@ def random_string(prefix, maxlen):
     symbols = string.ascii_letters + string.digits + string.punctuation + ' '
     return prefix + "".join(random.choice(symbols) for i in range(random.randrange(maxlen)))
 
-
 testdata = [Group(name="", header="", footer="")] + [
-    Group(name=random_string("name_", 10), header=random_string("header_", 10), footer=random_string("footer_", 10))
+    Group(name=random_string("NAME_", 10), header=random_string("header_", 10), footer=random_string("footer_", 10))
     for i in range(5)
     ]
-
-
-file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
+root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+file = root+f
 
 with open(file, 'w') as out:
     jsonpickle.set_encoder_options("json", indent=2)
